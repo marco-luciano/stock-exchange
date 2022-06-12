@@ -1,6 +1,7 @@
 const STOCKS_BASE_URL =
     "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com";
 const STOCKS_SEARCH_LIMIT = 10;
+const SYMBOL_PREFIX = "$";
 
 let search = document.getElementById("btnStockSearch");
 let inputStockSearch = document.getElementById("inputStockSearch");
@@ -16,24 +17,29 @@ inputStockSearch.addEventListener("keypress", function (event) {
 });
 
 search.addEventListener("click", function () {
+
+    removeStockProfileInfo();
+
     let searchText = document.getElementById("inputStockSearch").value;
 
     if (searchText !== "") {
         let searchURL = `${STOCKS_BASE_URL}/api/v3/search?query=${searchText}&amp;limit=${STOCKS_SEARCH_LIMIT}&amp;exchange=NASDAQ`;
-        let stockList = document.getElementById("stockList");
-        stockList.replaceChildren();
+        let stockList = document.getElementById("companyProfile");
+
+        if (stockList) {
+            stockList.replaceChildren();
+            document.getElementById("stockPlot").style.display = "none";
+        }
+
         showLoading();
         fetch(searchURL)
             .then((response) => response.json())
             .then(function (data) {
                 hideLoading();
-                console.log(data);
-                console.log(typeof data);
                 if (typeof data === "object") {
                     let cards = [];
 
                     cards = createStockCards(data);
-                    console.log("card", cards);
                     let stockList = document.getElementById("stockList");
 
                     stockList.replaceChildren(...cards);
@@ -53,7 +59,6 @@ function createStockCards(data) {
 
         let titleURL = document.createElement("a");
         titleURL.href = "/company.html?symbol=" + element.symbol;
-        titleURL.target = "_blank";
         let title = document.createElement("h5");
         title.innerHTML = formatSymbol(element.symbol);
         title.className = "card-title";
@@ -63,10 +68,10 @@ function createStockCards(data) {
         subtitle.innerText = element.name;
         subtitle.className = "card-subtitle";
 
-        titleURL.appendChild(title);
-        cardBody.appendChild(titleURL);
+        cardBody.appendChild(title);
         cardBody.appendChild(subtitle);
-        card.appendChild(cardBody);
+        titleURL.appendChild(cardBody);
+        card.appendChild(titleURL);
         cards.push(card);
     }
 
@@ -76,7 +81,7 @@ function createStockCards(data) {
 function showLoading() {
     let searchBox = document.getElementById("stockList");
     let loading = document.createElement("div");
-    loading.className = "div__loading text-center foo";
+    loading.className = "div__loading text-center";
     let spinner = document.createElement("div");
     spinner.className = "spinner-border text-success";
     loading.appendChild(spinner);
@@ -90,11 +95,16 @@ function hideLoading() {
 }
 
 function formatSymbol(symbol) {
-    symbolFormatted = "<b>$" + symbol + "</b>";
+    symbolFormatted = "<b>" + SYMBOL_PREFIX + symbol + "</b>";
     return symbolFormatted;
 }
 
-function addLink(link) {
-    linkElement.innerText = "View on Yahoo Finance";
-    return linkElement;
+function removeStockProfileInfo() {
+    let params = new URLSearchParams(window.location.search);
+    params ?? params.delete();
+    let stockProfile = document.getElementById("companyProfile");
+    if(stockProfile) {
+        stockProfile.remove();
+    }
+    
 }

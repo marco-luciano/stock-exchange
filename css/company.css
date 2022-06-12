@@ -1,0 +1,44 @@
+.h1__company-title {
+  text-align: center;
+}
+
+.div__company-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5em;
+    margin-top: 3em;
+}
+
+#stockPlot {
+    padding: 4em;
+    width: 100% !important;
+    height: 700px !important;
+    margin: 0 auto;
+}
+
+.div__symbol-image > img {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 80px;
+    outline: 3px solid var(--secondary-color);
+    border: solid 10px white;
+    margin: 0 auto;
+}
+
+.p__company-description{
+    text-overflow: ellipsis;
+}
+
+.span__company-price {
+    display: inline-flex;
+    gap: 2em;
+}
+
+.fa-caret-up, .fa-caret-down {
+    padding-top: 8px;
+}
