@@ -2,6 +2,7 @@ const STOCKS_BASE_URL =
     "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com";
 const STOCKS_SEARCH_LIMIT = 10;
 const SYMBOL_PREFIX = "$";
+const API_PROFILE_COMPANY_LIMIT = 3;
 
 let search = document.getElementById("btnStockSearch");
 let inputStockSearch = document.getElementById("inputStockSearch");
@@ -32,6 +33,7 @@ search.addEventListener("click", function () {
         }
 
         showLoading();
+
         fetch(searchURL)
             .then((response) => response.json())
             .then(function (data) {
@@ -58,6 +60,8 @@ function createStockCards(data) {
         cardBody.className = "card-body";
 
         let titleURL = document.createElement("a");
+        titleURL.className = "card-link";
+
         titleURL.href = "/company.html?symbol=" + element.symbol;
         let title = document.createElement("h5");
         title.innerHTML = formatSymbol(element.symbol);
@@ -74,6 +78,45 @@ function createStockCards(data) {
         card.appendChild(titleURL);
         cards.push(card);
     }
+
+    let symbols = data.map((element) => element.symbol);
+
+    let limit = Math.min(cards.length, API_PROFILE_COMPANY_LIMIT);
+    symbolsFirstThree = symbols.slice(0, limit);
+
+    let symbolsString = symbolsFirstThree.join(",");
+
+    //fetching first three symbols (max qty) to get company profile. 
+    fetch(`${STOCKS_BASE_URL}/api/v3/company/profile/${symbolsString}`)
+    .then((response) => response.json())
+    .then(function (data) {
+
+        // check if symbols match, API does not return profile info for all symbols
+        for (let i = 0; i < data.companyProfiles.length; i++) {
+            for (let k = 0; k < symbolsFirstThree.length; k++) {
+                if(symbolsFirstThree[k] === data.companyProfiles[i].symbol) {
+                    let img = document.createElement("img");
+                    img.src = data.companyProfiles[i].profile.image;
+                    img.className = "card-img-top";
+                    img.style.width = "100px";
+                    img.style.height = "100px";
+                    img.style.objectFit = "cover";
+                    img.style.objectPosition = "center";
+                    img.style.borderRadius = "0";
+                    img.style.border = "1px solid #ddd";
+                    img.style.borderBottom = "none";
+                    img.style.borderTopLeftRadius = "10px";
+                    img.style.borderTopRightRadius = "10px";
+                    img.style.borderBottomLeftRadius = "10px";
+                    img.style.borderBottomRightRadius = "10px";
+                    img.style.boxShadow = "0px 0px 10px #ddd";
+                    img.style.marginBottom = "10px";
+                    img.style.marginTop = "10px";
+                    cards[k].firstChild.prepend(img);
+                }
+            }
+        }
+    });
 
     return cards;
 }
