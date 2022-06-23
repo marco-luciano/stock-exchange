@@ -1,5 +1,5 @@
 .h1__company-title {
-  text-align: center;
+    text-align: center;
 }
 
 .div__company-profile {
@@ -30,7 +30,7 @@
     margin: 0 auto;
 }
 
-.p__company-description{
+.p__company-description {
     text-overflow: ellipsis;
 }
 
@@ -39,6 +39,7 @@
     gap: 2em;
 }
 
-.fa-caret-up, .fa-caret-down {
-    padding-top: 8px;
-}
+/*.fa-caret-up,
+.fa-caret-down {
+    margin-bottom: 100px;
+}*/

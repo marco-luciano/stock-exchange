@@ -14,4 +14,8 @@
         width: 14em;
         background-color: #f6f6f6;
     }
+
+    .div__searchResultsCompanyChanges {
+        flex-direction: column;
+    }
 }

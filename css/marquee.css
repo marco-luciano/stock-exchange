@@ -1,0 +1,71 @@
+.marquee {
+    background-color: white;
+    color: white;
+    height: 60px;
+    width: 100vw;
+    font-family: "Open Sans Bold", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-weight: 800;
+    vertical-align: middle;
+}
+
+.marquee-company {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    gap: 6px;
+    flex-direction: row;
+    vertical-align: middle;
+}
+
+.marquee-company > * {
+    font-size: 24px;
+    text-shadow: 1px 1px 1px black;
+    color: black;
+}
+
+.marquee-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 11px;
+    flex-direction: row;
+    vertical-align: middle;
+
+    -moz-animation: marquee 30s linear infinite;
+    -webkit-animation: marquee 30s linear infinite;
+    animation: marquee 30s linear infinite;
+}
+
+.marquee-text {
+    vertical-align: middle;
+}
+
+.marquee-company-ticker {
+    color: blue;
+}
+
+.marquee-company-price .marquee-text-difference {
+    color: yellow;
+}
+
+.marquee-company-percentage--up {
+    color: var(--secondary-color);
+}
+.marquee-company-difference--down,
+.marquee-company-percentage--down {
+    color: red;
+}
+
+@keyframes marquee {
+    0% {
+        -webkit-transform: translateX(100%);
+    }
+    100% {
+        -webkit-transform: translateX(-100%);
+    }
+}

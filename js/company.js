@@ -1,6 +1,3 @@
-const SECONDARY_COLOR = "#0f9404";
-const CHART_WIDTH = 800;
-const CHART_HEIGHT = 500;
 var urlParams = new URLSearchParams(window.location.search);
 
 let symbol = urlParams.get("symbol");
@@ -12,7 +9,6 @@ showLoadingCompany();
 fetch(`${STOCKS_BASE_URL}/api/v3/company/profile/${symbol}`)
     .then((response) => response.json())
     .then(function (data) {
-
         hideLoadingCompany();
 
         let stockList = document.getElementById("stockList");
@@ -30,6 +26,11 @@ fetch(`${STOCKS_BASE_URL}/api/v3/company/profile/${symbol}`)
                 symbolImageDiv.className = "div__symbol-image";
                 symbolImage = document.createElement("img");
                 symbolImage.src = data.profile.image;
+                symbolImage.onerror = function () {
+                    symbolImage.src = "/img/stocki-logo-simple.png";
+                    symbolImage.style.width = "100px";
+                    symbolImage.style.height = "100px";
+                }
                 symbolImage.alt = data.symbol;
                 symbolImageDiv.appendChild(symbolImage);
 
@@ -46,42 +47,26 @@ fetch(`${STOCKS_BASE_URL}/api/v3/company/profile/${symbol}`)
                 let symbolPriceNumber = document.createElement("div");
                 symbolPriceNumber.className = "display-5 h5__company-price";
 
-                let formatter = new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: data.profile.currency,
-                    minimumFractionDigits: 2,
-                });
-
-                symbolPriceNumber.innerHTML = formatter.format(
+                symbolPriceNumber.innerHTML = currencyFormatter.format(
                     data.profile.price
                 );
 
-                symbolPrice.appendChild(symbolPriceTrend);
                 symbolPrice.appendChild(symbolPriceNumber);
                 symbolPrice.style.gap = "0.5em";
 
-                let changesFormatter = new Intl.NumberFormat("en-US", {
-                    maximumSignificantDigits: 2,
-                });
-
                 let symbolPercentage = document.createElement("div");
-                symbolPercentage.className = "display-5 h5__company-percentage";
+                symbolPercentage.className = "display-5 div__profile-company-percentage-change";
                 symbolPercentage.innerHTML =
-                    changesFormatter.format(data.profile.changesPercentage) +
-                    "0%";
+                    percentageFormatter.format(data.profile.changesPercentage) +
+                    "%";
 
-                if (data.profile.changes > 0) {
-                    symbolPriceTrend.className = "fas fa-caret-up";
-                    symbolPriceTrend.style.color = "limegreen";
-                    symbolPercentage.style.color = "limegreen";
-                } else {
-                    symbolPriceTrend.className = "fas fa-caret-down";
-                    symbolPriceTrend.style.color = "red";
-                    symbolPercentage.style.color = "red";
-                }
+                setTrendColor(symbolPriceTrend, symbolPercentage, data.profile.changes);
+
+                symbolPercentage.prepend(symbolPriceTrend);
 
                 let symbolSpan = document.createElement("span");
                 symbolSpan.className = "span__company-price";
+
                 symbolSpan.appendChild(symbolTitle);
                 symbolSpan.appendChild(symbolPrice);
                 symbolSpan.appendChild(symbolPercentage);
@@ -116,11 +101,11 @@ function plotStocks(data) {
     let prices = data.historical.map((item) => item.close);
     let dates = data.historical.map((item) => item.date);
 
-    const datae = {
+    const plotData = {
         labels: dates,
         datasets: [
             {
-                label: "My First dataset",
+                label: data.symbol,
                 backgroundColor: SECONDARY_COLOR,
                 borderColor: SECONDARY_COLOR,
                 data: prices,
@@ -130,7 +115,7 @@ function plotStocks(data) {
 
     const config = {
         type: "line",
-        data: datae,
+        data: plotData,
         options: {
             plugins: {
                 legend: {
@@ -159,7 +144,7 @@ function plotStocks(data) {
     stockPlot.style.display = "block";
 }
 
-function showLoadingCompany(){
+function showLoadingCompany() {
     let spinner = document.createElement("div");
     spinner.className = "spinner-border text-success text-center";
     spinner.id = "loading";
@@ -169,7 +154,8 @@ function showLoadingCompany(){
     container.appendChild(spinner);
 }
 
-function hideLoadingCompany(){
+function hideLoadingCompany() {
     let loading = document.getElementById("loading");
     loading.remove();
 }
+

@@ -77,7 +77,6 @@ body {
 .div__card-stock:hover {
     transform: translateY(-0.3em);
     transition: all 0.3s ease-in-out;
-    color: var(--secondary-color);
 }
 
 .stock-list {
@@ -109,4 +108,59 @@ a:hover {
     flex-direction: row;
     gap: 10px;
     margin: 10px;
+}
+
+.div__searchResultsCompanyChanges {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-size: 22px;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.div__searchResultsCompanyChanges > .fa-caret-up,
+.div__searchResultsCompanyChanges > .fa-caret-down {
+    padding-top: 4px;
+}
+
+.div__search-company-price {
+    font-weight: 600;
+}
+
+.div__search-company-percentage-change--up {
+    color: green;
+    font-size: 22px;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.div__search-company-percentage-change--down {
+    color: red;
+    font-size: 22px;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.div__search-company-percentage-change--no-profile {
+    font-size: 18px;
+    margin: 0 auto;
+    vertical-align: middle;
+    color: gray;
+}
+
+.div__profile-company-percentage-change {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.fa-caret-up {
+    color: limegreen;
+}
+
+.fa-caret-down {
+    color: red;
 }
