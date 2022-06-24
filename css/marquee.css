@@ -1,9 +1,34 @@
 .marquee {
-    background-color: white;
+    background-color: black;
+    background-color: #212121;
+    opacity: 1;
+    background-image: linear-gradient(
+            #000000 1.2px,
+            transparent 1.2px
+        ),
+        linear-gradient(
+            90deg,
+            #000000 1.2px,
+            transparent 1.2px
+        ),
+        linear-gradient(
+            #000000 0.6000000000000001px,
+            transparent 0.6000000000000001px
+        ),
+        linear-gradient(
+            90deg,
+            #000000 0.6000000000000001px,
+            #212121 0.6000000000000001px
+        );
+    background-size: 30px 30px, 30px 30px, 6px 6px, 6px 6px;
+    background-position: -1.2px -1.2px,
+        -1.2px -1.2px,
+        -0.6px -0.6px,
+        -0.6px -0.6px;
     color: white;
     height: 60px;
     width: 100vw;
-    font-family: "Open Sans Bold", sans-serif;
+    font-family: "Open Sans", sans-serif;
     white-space: nowrap;
     overflow: hidden;
     box-sizing: border-box;
@@ -22,9 +47,8 @@
 }
 
 .marquee-company > * {
-    font-size: 24px;
-    text-shadow: 1px 1px 1px black;
-    color: black;
+    font-size: 28px;
+    color: white;
 }
 
 .marquee-content {
@@ -32,7 +56,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    gap: 11px;
+    gap: 12px;
     flex-direction: row;
     vertical-align: middle;
 
@@ -46,7 +70,7 @@
 }
 
 .marquee-company-ticker {
-    color: blue;
+    color: lightseagreen;
 }
 
 .marquee-company-price .marquee-text-difference {

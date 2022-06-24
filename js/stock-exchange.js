@@ -1,31 +1,9 @@
-const STOCKS_BASE_URL =
-    "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com";
-const STOCKS_SEARCH_LIMIT = 10;
-const SYMBOL_PREFIX = "$";
-const API_PROFILE_COMPANY_LIMIT = 3;
-const SECONDARY_COLOR = "#0f9404";
-const CHART_WIDTH = 800;
-const CHART_HEIGHT = 500;
-
-const currencyFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-});
-const changesFormatter = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 4,
-});
-
-const percentageFormatter = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-});
-
 let search = document.getElementById("btnStockSearch");
 let inputStockSearch = document.getElementById("inputStockSearch");
 var lastSymbol = "";
+
+let marqueeContainer = document.getElementById("marqueeContainer");
+let marquee = new Marquee(marqueeContainer);
 
 inputStockSearch.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -58,7 +36,6 @@ search.addEventListener("click", function () {
                 hideLoading();
                 if (typeof data === "object") {
                     let cards = [];
-                    console.log(data);
                     cards = createStockCards(data);
                     let stockList = document.getElementById("stockList");
 
@@ -66,7 +43,7 @@ search.addEventListener("click", function () {
                 }
             })
             .catch(function (data) {
-                console.log(data);
+                console.error(data);
                 let stockList = document.getElementById("stockList");
                 stockList.replaceChildren();
             });
@@ -125,7 +102,6 @@ function createStockCards(data) {
             }
         })
         .then(function (data) {
-            console.log(data);
             // check if symbols match, API does not return profile info for all symbols
             for (let i = 0; i < data.companyProfiles.length; i++) {
                 for (let k = 0; k < symbolsFirstThree.length; k++) {
@@ -217,12 +193,10 @@ function createStockCards(data) {
                 priceDiv.appendChild(changesPercentageText);
                 cards[cardIndex].lastChild.append(priceDiv);
             }
-
-            console.log(symbolsWithoutProfileInfo);
         })
         .catch(function (error) {
-            console.log("error");
-            console.log(error);
+            console.error("error");
+            console.error(error);
         });
 
     return cards;

@@ -18,4 +18,8 @@
     .div__searchResultsCompanyChanges {
         flex-direction: column;
     }
+
+    .logo {
+        display: none;
+    }
 }
