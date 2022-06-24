@@ -30,7 +30,7 @@ fetch(`${STOCKS_BASE_URL}/api/v3/company/profile/${symbol}`)
                     symbolImage.src = "/img/stocki-logo-simple.png";
                     symbolImage.style.width = "100px";
                     symbolImage.style.height = "100px";
-                }
+                };
                 symbolImage.alt = data.symbol;
                 symbolImageDiv.appendChild(symbolImage);
 
@@ -55,12 +55,17 @@ fetch(`${STOCKS_BASE_URL}/api/v3/company/profile/${symbol}`)
                 symbolPrice.style.gap = "0.5em";
 
                 let symbolPercentage = document.createElement("div");
-                symbolPercentage.className = "display-5 div__profile-company-percentage-change";
+                symbolPercentage.className =
+                    "display-5 div__profile-company-percentage-change";
                 symbolPercentage.innerHTML =
                     percentageFormatter.format(data.profile.changesPercentage) +
                     "%";
 
-                setTrendColor(symbolPriceTrend, symbolPercentage, data.profile.changes);
+                setTrendColor(
+                    symbolPriceTrend,
+                    symbolPercentage,
+                    data.profile.changes
+                );
 
                 symbolPercentage.prepend(symbolPriceTrend);
 
@@ -158,4 +163,3 @@ function hideLoadingCompany() {
     let loading = document.getElementById("loading");
     loading.remove();
 }
-

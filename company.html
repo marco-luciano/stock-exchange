@@ -31,7 +31,9 @@
         <link rel="stylesheet" href="css/marquee.css" />
     </head>
     <body>
-        <div class="marquee"></div>
+        <div class="marquee">
+            <div class="marquee-content" id="marqueeContainer"></div>
+        </div>
         <div class="container container-md container-company">
             <nav class="navbar navbar-light navbar__top" id="navbar">
                 <a href="index.html" class="navbar-brand">
@@ -61,10 +63,10 @@
         <div class="container container-md container-canvas">
             <canvas id="stockPlot" width="400" height="400"></canvas>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.4/underscore-umd-min.js"></script>
         <script type="text/javascript" src="js/global.js"></script>
+        <script type="text/javascript" src="js/Marquee.js"></script>
         <script type="text/javascript" src="js/stock-exchange.js"></script>
         <script type="text/javascript" src="js/company.js"></script>
-        <script type="text/javascript" src="js/Marquee.js"></script>
     </body>
 </html>
