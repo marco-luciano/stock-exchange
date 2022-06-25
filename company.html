@@ -39,20 +39,7 @@
                 <a href="index.html" class="navbar-brand">
                     <img src="img/stocki-logo2.png" alt="" class="logo" />
                 </a>
-                <div class="div__search-box" id="searchBox">
-                    <input
-                        type="search"
-                        class="form-control input__stock-search"
-                        placeholder="Search companies and symbols"
-                        id="inputStockSearch"
-                    />
-                    <button
-                        class="btn btn__stock btn__stock-search"
-                        id="btnStockSearch"
-                    >
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </div>
+                <div class="div__search-box" id="searchForm"></div>
             </nav>
             <div class="company-profile" id="companyProfile"></div>
             <div>
@@ -65,7 +52,9 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.4/underscore-umd-min.js"></script>
         <script type="text/javascript" src="js/global.js"></script>
-        <script type="text/javascript" src="js/Marquee.js"></script>
+        <script type="text/javascript" src="js/classes/Marquee.js"></script>
+        <script type="text/javascript" src="js/classes/SearchForm.js"></script>
+        <script type="text/javascript" src="js/classes/SearchResult.js"></script>
         <script type="text/javascript" src="js/stock-exchange.js"></script>
         <script type="text/javascript" src="js/company.js"></script>
     </body>

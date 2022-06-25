@@ -151,10 +151,8 @@ function plotStocks(data) {
 
 function showLoadingCompany() {
     let spinner = document.createElement("div");
-    spinner.className = "spinner-border text-success text-center";
+    spinner.className = "spinner-border text-success spinner-company";
     spinner.id = "loading";
-    spinner.style.position = "relative";
-    spinner.style.left = "50%";
     container = document.querySelector(".container");
     container.appendChild(spinner);
 }
@@ -162,4 +160,12 @@ function showLoadingCompany() {
 function hideLoadingCompany() {
     let loading = document.getElementById("loading");
     loading.remove();
+}
+
+function setTrendColor(trend, percentage, changes) {
+    if (changes > 0) {
+        trend.className = "fas fa-caret-up";
+    } else {
+        trend.className = "fas fa-caret-down";
+    }
 }

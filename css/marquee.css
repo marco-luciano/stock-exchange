@@ -69,7 +69,7 @@
 }
 
 .marquee-company-ticker {
-    color: lightseagreen;
+    color: cyan;
 }
 
 .marquee-company-price .marquee-text-difference {
@@ -77,11 +77,11 @@
 }
 
 .marquee-company-percentage--up {
-    color: var(--secondary-color);
+    color: lime;
 }
 .marquee-company-difference--down,
 .marquee-company-percentage--down {
-    color: red;
+    color: orangered;
 }
 
 @keyframes marquee {

@@ -96,6 +96,11 @@ body {
     height: 5rem;
 }
 
+.spinner-company {
+    position: "relative";
+    left: "50%";
+}
+
 a,
 a:hover {
     color: inherit; /* remove blue link color */
@@ -167,4 +172,20 @@ a:hover {
 
 .fa-caret-down {
     color: red;
+}
+
+.card-img-top {
+    height: "100px";
+    object-fit: "cover";
+    object-position: "center";
+    border-radius: "0";
+    border: "1px solid #ddd";
+    border-bottom: "none";
+    border-top-left-radius: "10px";
+    border-top-right-radius: "10px";
+    border-bottom-left-radius: "10px";
+    border-bottom-right-radius: "10px";
+    box-shadow: "0px 0px 10px #ddd";
+    margin-bottom: "10px";
+    margin-top: "10px";
 }
