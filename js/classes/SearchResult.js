@@ -10,13 +10,15 @@ class SearchResult {
     }
 
     renderResults = (event) => {
-        // if search key is empty, we don't need to search
-
         if (event === "undefined") {
-            this.searchText = event.target.value;
+            this.searchText = event.target.value.trim();
         } else {
-            this.searchText = document.getElementById("inputStockSearch").value;
+            this.searchText = document
+                .getElementById("inputStockSearch")
+                .value.trim();
         }
+
+        // if search key is empty, we don't need to search
         if (this.searchText.length > 0) {
             this.createUrl();
             this.removeStockProfileInfo();
@@ -30,7 +32,7 @@ class SearchResult {
 
             this.showLoading();
 
-            this.getPromiseSearchData().then((data) => {});
+            this.getPromiseSearchData();
         }
     };
 
@@ -84,12 +86,17 @@ class SearchResult {
 
             titleURL.href = "./company.html?symbol=" + element.symbol;
             let title = document.createElement("h5");
-            title.innerHTML = this.formatSymbol(element.symbol);
+
+            title.innerHTML = this.highlightSearchText(
+                this.formatSymbol(element.symbol)
+            );
+
             title.className = "card-title";
             title.setAttribute("color", "red");
 
             let subtitle = document.createElement("h6");
-            subtitle.innerText = element.name;
+            subtitle.innerHTML = this.highlightSearchText(element.name);
+
             subtitle.className = "card-subtitle";
 
             cardBody.appendChild(title);
@@ -112,6 +119,63 @@ class SearchResult {
         }
 
         //fetching first three symbols (max qty) to get company profile.
+        this.getCompanyProfiles(symbolsString, symbolsFirstThree, cards);
+
+        return cards;
+    };
+
+    getPromiseSearchData = () => {
+        let data = fetch(this.url)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(
+                        "Network response error: " + response.status
+                    );
+                }
+            })
+            .then((data) => {
+                this.hideLoading();
+                if (typeof data === "object" && data.length > 0) {
+                    let cards = [];
+                    cards = this.createStockCards(data);
+                    this.element.replaceChildren(...cards);
+                } else {
+                    this.element.replaceChildren();
+                }
+            })
+            .catch(function (data) {
+                console.error(data);
+                this.element.replaceChildren();
+            });
+
+        return data;
+    };
+
+    formatSymbol = (symbol) => {
+        let symbolFormatted = "<b>" + SYMBOL_PREFIX + symbol + "</b>";
+        return symbolFormatted;
+    };
+
+    createSearchThumbnail = (src) => {
+        let img = document.createElement("img");
+        img.src = src;
+        img.onerror = function () {
+            img.src = "./img/stocki-logo-simple.png";
+        };
+        img.className = "card-img-top";
+        img.classList.add("img"), (img.style.width = "100px");
+
+        return img;
+    };
+
+    /* set a caret and a trend color for stock percentages */
+    setTrendColor = (trend, changes) => {
+        trend.className = changes > 0 ? "fa fa-caret-up" : "fa fa-caret-down";
+    };
+
+    getCompanyProfiles(symbolsString, symbolsFirstThree, cards) {
         fetch(`${STOCKS_BASE_URL}/api/v3/company/profile/${symbolsString}`)
             .then(function (response) {
                 if (response.ok) {
@@ -224,58 +288,10 @@ class SearchResult {
                 console.error("error");
                 console.error(error);
             });
+    }
 
-        return cards;
-    };
-
-    getPromiseSearchData = () => {
-        let data = fetch(this.url)
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error(
-                        "Network response error: " + response.status
-                    );
-                }
-            })
-            .then((data) => {
-                this.hideLoading();
-                if (typeof data === "object" && data.length > 0) {
-                    let cards = [];
-                    cards = this.createStockCards(data);
-                    this.element.replaceChildren(...cards);
-                } else {
-                    this.element.replaceChildren();
-                }
-            })
-            .catch(function (data) {
-                console.error(data);
-                this.element.replaceChildren();
-            });
-
-        return data;
-    };
-
-    formatSymbol = (symbol) => {
-        let symbolFormatted = "<b>" + SYMBOL_PREFIX + symbol + "</b>";
-        return symbolFormatted;
-    };
-
-    createSearchThumbnail = (src) => {
-        let img = document.createElement("img");
-        img.src = src;
-        img.onerror = function () {
-            img.src = "./img/stocki-logo-simple.png";
-        };
-        img.className = "card-img-top";
-        img.classList.add("img"), (img.style.width = "100px");
-
-        return img;
-    };
-
-    /* set a caret and a trend color for stock percentages */
-    setTrendColor = (trend, changes) => {
-        trend.className = changes > 0 ? "fa fa-caret-up" : "fa fa-caret-down";
+    highlightSearchText = (text) => {
+        let regex = new RegExp(this.searchText, "gi");
+        return text.toString().replace(regex, `<mark>$&</mark>`);
     };
 }

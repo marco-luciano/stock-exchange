@@ -1,28 +1,12 @@
 .marquee {
     background-color: #212121;
     opacity: 1;
-    background-image: linear-gradient(
-            black 1.2px,
-            transparent 1.2px
-        ),
-        linear-gradient(
-            90deg,
-            black 1.2px,
-            transparent 1.2px
-        ),
-        linear-gradient(
-            black 0.6px,
-            transparent 0.6px
-        ),
-        linear-gradient(
-            90deg,
-            black 0.6px,
-            #212121 0.6px
-        );
+    background-image: linear-gradient(black 1.2px, transparent 1.2px),
+        linear-gradient(90deg, black 1.2px, transparent 1.2px),
+        linear-gradient(black 0.6px, transparent 0.6px),
+        linear-gradient(90deg, black 0.6px, #212121 0.6px);
     background-size: 30px 30px, 30px 30px, 6px 6px, 6px 6px;
-    background-position: -1.2px -1.2px,
-        -1.2px -1.2px,
-        -0.6px -0.6px,
+    background-position: -1.2px -1.2px, -1.2px -1.2px, -0.6px -0.6px,
         -0.6px -0.6px;
     color: white;
     height: 60px;

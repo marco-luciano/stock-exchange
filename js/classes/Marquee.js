@@ -32,9 +32,12 @@ class Marquee {
                 let marqueeCompanyDiv = document.createElement("div");
                 marqueeCompanyDiv.className = "marquee-company";
 
-                let marqueeCompanyName = document.createElement("div");
+                let marqueeCompanyName = document.createElement("a");
                 marqueeCompanyName.className = "marquee-company-ticker";
                 marqueeCompanyName.innerHTML = marqueeCompany.symbol;
+                marqueeCompanyName.href =
+                    "/company.html?symbol=" + marqueeCompany.symbol;
+                marqueeCompanyName.title = marqueeCompany.name;
                 marqueeCompanyDiv.appendChild(marqueeCompanyName);
 
                 let marqueeCompanyPrice = document.createElement("div");
