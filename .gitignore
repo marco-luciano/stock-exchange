@@ -1,0 +1,18 @@
+# Ignore editor-specific files
+.vscode/
+.idea/
+.history
+
+# Ignore temporary files
+*.swp
+*.swo
+*.bak
+
+# Ignore compiled files (if any)
+*.min.css
+*.min.js
+
+# Ignore any other generated or build artifacts
+/dist/
+/build/
+/out/
