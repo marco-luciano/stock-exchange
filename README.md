@@ -1,6 +1,6 @@
 # Stocki: Stock Exchange Project
 
-Stocki is a stock exchange project developed using plain JavaScript, HTML, and CSS. It provides a simple user interface for users to view and track stock prices.
+**Stocki** is a stock exchange project developed using plain JavaScript, HTML, and CSS. It provides a simple user interface for users to view and track stock prices.
 
 ## Features
 
@@ -56,4 +56,4 @@ This project was inspired by the XYZ Stock Exchange API for fetching real-time s
 
 ## Contact
 
-If you have any questions or suggestions, please feel free to reach out at [marco.magisano.7@gmail.com](mailto:marco.magisano.7@gmail.com)
+If you have any questions or suggestions, please feel free to reach out at [marco.magisano.7@gmail.com](mailto:marco.magisano.7)
