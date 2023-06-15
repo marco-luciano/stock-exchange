@@ -11,7 +11,7 @@
 
 ## Demo
 
-You can check out the live demo of the project [here](https://example.com).
+You can check out the live demo of the project [here][url].
 
 ## Screenshots
 
@@ -57,3 +57,6 @@ This project was inspired by the XYZ Stock Exchange API for fetching real-time s
 ## Contact
 
 If you have any questions or suggestions, please feel free to reach out at [marco.magisano.7@gmail.com](mailto:marco.magisano.7)
+
+
+[url]: https://marco-luciano.github.io/stock-exchange/
